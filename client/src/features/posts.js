@@ -25,8 +25,9 @@ const postsSlice = createSlice({
             state.status = "pending";
         },
         [getPosts.fulfilled]: (state,action)=>{
-            state.status = "succes";
+            state.status = "success";
             state.posts = action.payload;
+          
         },
         [getPosts.rejected]: (state,action)=>{
             state.status = "rejected";
