@@ -33,7 +33,7 @@ function Post({post}) {
              subheader="may 1"
              />
             <CardMedia className={classes.media}
-                image="https://images.pexels.com/photos/11887829/pexels-photo-11887829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                image={post.selectedFile ? post.selectedFile:"https://images.pexels.com/photos/11887829/pexels-photo-11887829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
                 alt="place"
             />
             <CardContent>

@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk, applyMiddleware } from "@reduxjs/toolkit";
+import * as api from '../api/index.js'
 
 const initialState = {
     posts : [],
@@ -9,8 +9,19 @@ export const getPosts = createAsyncThunk(
     "posts/getPosts",
     async()=>{
         try {
-            const response = await axios.get("http://localhost:5000/posts");
+            const response = await api.fetchPosts()
             return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+export const createPost = createAsyncThunk(
+    "posts/createPosts",
+    async(post)=>{
+        try {
+           const response = await api.createPost(post)
+           return response.data
         } catch (error) {
             console.log(error)
         }
@@ -32,6 +43,9 @@ const postsSlice = createSlice({
         [getPosts.rejected]: (state,action)=>{
             state.status = "rejected";
         },
+        [createPost.fulfilled]: (state,action)=>{
+            state.push(action.payload);
+        }
     },
 });
 

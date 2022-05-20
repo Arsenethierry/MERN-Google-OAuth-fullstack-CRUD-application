@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
@@ -12,7 +12,6 @@ const store = configureStore({
   },
 })
 
-store.dispatch(getPosts())
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
