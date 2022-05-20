@@ -11,8 +11,8 @@ import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
 import PublishIcon from '@mui/icons-material/Publish';
 import { IconButton, Paper, TextField, Tooltip } from '@mui/material';
-import useStyles from './formStyle'
-import FileBase from 'react-file-base64'
+import useStyles from './formStyle';
+import FileBase from 'react-file-base64';
 
 
 
@@ -58,7 +58,7 @@ export default function FormPost() {
 
   const classes = useStyles()
   const [open, setOpen] = useState(false);
-  const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+  const [postData, setPostData] = useState({ creator: "", title: "", message: "", tags: "", selectedFile: "" });
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
@@ -68,9 +68,9 @@ export default function FormPost() {
     setOpen(false);
   };
   const Clear = ()=>{
-    setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
-
+    setPostData({  creator: "", title: "", message: "", tags: "", selectedFile: "" })
   }
+
   
   const handleSubmit = async (e)=>{
     e.preventDefault();
