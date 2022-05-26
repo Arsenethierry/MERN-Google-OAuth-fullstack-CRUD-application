@@ -12,11 +12,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+
+import { useDispatch } from 'react-redux';
+import { deletePost } from '../../../features/posts';
 import useStyles from './styles';
 
 
 function Post({ post, setCurrentId }) {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -92,7 +96,7 @@ function Post({ post, setCurrentId }) {
         }}
       >
         <MenuItem onClick={()=> setCurrentId(post._id)}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
+        <MenuItem onClick={()=> dispatch(deletePost(post._id))}>Delete</MenuItem>
         <MenuItem onClick={handleClose}>Like</MenuItem>
       </Menu>
         </>

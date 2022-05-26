@@ -41,6 +41,18 @@ export const updatePost = createAsyncThunk(
     }
 )
 
+export const deletePost = createAsyncThunk(
+    "posts/deletePost",
+    async(id)=>{
+        try {
+            const response = await api.deletePost(id);
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
 const postsSlice = createSlice({
     name: "posts",
     initialState,
@@ -65,6 +77,15 @@ const postsSlice = createSlice({
         },
         [createPost.fulfilled]: (state,action)=>{
             state.push(action.payload);
+        },
+        [deletePost.fulfilled]: (state,action)=>{
+            const currentPosts = state.posts.filter((post)=> post._id !== action.payload._id);
+            return{
+                ...state,
+                posts: currentPosts,
+                status: "success"
+                
+            }
         }
     },
 });

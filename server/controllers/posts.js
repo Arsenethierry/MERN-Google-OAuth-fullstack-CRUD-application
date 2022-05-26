@@ -41,5 +41,15 @@ export const updatePost = async(req,res)=>{
 
     res.json(updatedPost);
 }
+export const deletePost = async(req,res)=>{
+    const { id } = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`no post with id: ${id}`)
+
+    await PostModel.findByIdAndRemove(id);
+
+    res.json({ message: "post deleted successfully"})
+}
+
 
 export default router
