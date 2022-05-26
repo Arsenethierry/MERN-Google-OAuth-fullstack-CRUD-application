@@ -18,7 +18,7 @@ const Search = styled("div")(({ theme })=>({
     width: "40%",
 }));
 
-function Navbar( {handleClickOpen} ) {
+function Navbar( { currentId,setCurrentId } ) {
     return (
        <AppBar position="sticky">
            <StyledToolbar>
@@ -42,7 +42,7 @@ function Navbar( {handleClickOpen} ) {
                     </Tooltip>
                     <Tooltip title="Upload">
                         <IconButton>
-                            <FormPost />
+                            <FormPost currentId={currentId} setCurrentId={setCurrentId} />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="My Account">

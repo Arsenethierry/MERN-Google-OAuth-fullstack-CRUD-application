@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPost } from '../features/posts';
+import { createPost, updatePost } from '../features/posts';
 
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
@@ -13,6 +13,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 import { IconButton, Paper, TextField, Tooltip } from '@mui/material';
 import useStyles from './formStyle';
 import FileBase from 'react-file-base64';
+import { useEffect } from 'react';
 
 
 
@@ -54,11 +55,12 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function FormPost() {
+export default function FormPost({ currentId,setCurrentId }) {
 
   const classes = useStyles()
   const [open, setOpen] = useState(false);
   const [postData, setPostData] = useState({ creator: "", title: "", message: "", tags: "", selectedFile: "" });
+  const post = useSelector((state)=> (currentId ? state.posts.posts.find((p)=> p._id === currentId):null));
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
@@ -71,13 +73,20 @@ export default function FormPost() {
     setPostData({  creator: "", title: "", message: "", tags: "", selectedFile: "" })
   }
 
+  useEffect(()=>{
+    if(post) setPostData(post);
+  },[post])
   
   const handleSubmit = async (e)=>{
     e.preventDefault();
 
-    dispatch(createPost(postData))
-    Clear()
-    handleClose()
+    if(currentId){
+      dispatch(updatePost(currentId,postData))
+      Clear()
+    }else{
+      dispatch(createPost(postData))
+      Clear()
+    }
   }
 
   return (
@@ -93,7 +102,7 @@ export default function FormPost() {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Create Post
+          {currentId ? `Editing "${post.title}"`: 'Creating a post'}
         </BootstrapDialogTitle>
         <DialogContent dividers>
         <Paper className='classes.paper'>

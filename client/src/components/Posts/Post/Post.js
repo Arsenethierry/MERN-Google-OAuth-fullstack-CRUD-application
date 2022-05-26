@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import useStyles from './styles';
 
 
-function Post({post}) {
+function Post({ post, setCurrentId }) {
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -57,6 +57,9 @@ function Post({post}) {
             />
             <CardContent>
                 <Typography variant='body2' component="h2" color="textSecondary" >{post.tags.map((tag)=>`#${tag} `)}</Typography>
+                <Typography variant="body2" className={classes.title}>
+                    {post.title}
+                </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {post.message}
                 </Typography>
@@ -88,7 +91,7 @@ function Post({post}) {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
+        <MenuItem onClick={()=> setCurrentId(post._id)}>Edit</MenuItem>
         <MenuItem onClick={handleClose}>Delete</MenuItem>
         <MenuItem onClick={handleClose}>Like</MenuItem>
       </Menu>

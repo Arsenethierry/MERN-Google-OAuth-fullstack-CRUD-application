@@ -27,4 +27,19 @@ export const createPost = async(req,res) => {
     }
 }
 
+export const updatePost = async(req,res)=>{
+    const post = req.body;
+    console.log(post.title)
+    const { id : _id } = req.params;
+    
+
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("no valid id");
+
+
+
+    const updatedPost = await PostModel.findByIdAndUpdate(_id, {...post, _id }, { new: true });
+
+    res.json(updatedPost);
+}
+
 export default router

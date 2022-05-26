@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, applyMiddleware } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from '../api/index.js'
 
 const initialState = {
@@ -27,12 +27,32 @@ export const createPost = createAsyncThunk(
         }
     }
 )
+
+export const updatePost = createAsyncThunk(
+    "posts/updatePost",
+    async(id,post)=>{
+       try {
+        const { data } = await api.updatePost(id,post);
+
+        return data
+       } catch (error) {
+           console.log(error)
+       } 
+    }
+)
+
 const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {},
     extraReducers:{
-        [getPosts.pending]: (state,action)=>{
+        [updatePost.fulfilled]: (state,action)=>{
+            state.status = "success";
+            const updatedPost = state.posts.map((post)=>(post._id === action.payload._id ? action.payload:post));
+            state.posts = updatedPost;
+        },
+        
+        [getPosts.pending]: (state)=>{
             state.status = "pending";
         },
         [getPosts.fulfilled]: (state,action)=>{
@@ -40,7 +60,7 @@ const postsSlice = createSlice({
             state.posts = action.payload;
           
         },
-        [getPosts.rejected]: (state,action)=>{
+        [getPosts.rejected]: (state)=>{
             state.status = "rejected";
         },
         [createPost.fulfilled]: (state,action)=>{
