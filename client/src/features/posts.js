@@ -41,6 +41,17 @@ export const updatePost = createAsyncThunk(
     }
 )
 
+export const likePost = createAsyncThunk(
+    "posts/likePost",
+    async(id)=>{
+        try {
+            const { data } = await api.likePost(id);
+            return data;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
 export const deletePost = createAsyncThunk(
     "posts/deletePost",
     async(id)=>{
@@ -85,6 +96,15 @@ const postsSlice = createSlice({
                 posts: currentPosts,
                 status: "success"
                 
+            }
+        },
+        [likePost.fulfilled]:(state,action)=>{
+            const liked = state.posts.map((post)=>
+            (post._id === action.payload._id ? action.payload : post));
+            return{
+                ...state,
+                posts: liked,
+                status: "success"
             }
         }
     },

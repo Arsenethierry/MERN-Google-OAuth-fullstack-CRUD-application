@@ -4,11 +4,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
-import postsReducer, { getPosts } from './features/posts';
+import postsReducer from './features/posts';
+import authReducer from './features/auth';
 
 const store = configureStore({
   reducer: {
-    posts : postsReducer
+    posts : postsReducer,
+    auth : authReducer
   },
 })
 

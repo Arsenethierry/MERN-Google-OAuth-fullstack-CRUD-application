@@ -1,4 +1,4 @@
-import { Avatar, Card, IconButton, Typography } from '@mui/material';
+import { Avatar, Badge, Card, IconButton, Typography } from '@mui/material';
 import React from 'react';
 import moment from 'moment';
 import CardHeader from '@mui/material/CardHeader';
@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { red } from '@mui/material/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -14,7 +14,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useDispatch } from 'react-redux';
-import { deletePost } from '../../../features/posts';
+import { deletePost, likePost } from '../../../features/posts';
 import useStyles from './styles';
 
 
@@ -30,6 +30,7 @@ function Post({ post, setCurrentId }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    
     return (
         <>
         <Card className={classes.card}>
@@ -64,19 +65,17 @@ function Post({ post, setCurrentId }) {
                 <Typography variant="body2" className={classes.title}>
                     {post.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {post.message}
-                </Typography>
+                
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon/>
+                <IconButton aria-label="add to favorites" onClick={()=>dispatch(likePost(post._id))}>
+                    <Badge badgeContent={post.likeCount} color="success">
+                        {post.likeCount>0 ? <FavoriteIcon sx={{ color: red[700] }}/> : <FavoriteBorderOutlinedIcon/>}
+                        
+                    </Badge>
                 </IconButton>
-                <IconButton aria-label="share">
+                <IconButton aria-label="share" onClick={()=> dispatch(deletePost(post._id))}>
                     <DeleteIcon />
-                </IconButton>
-                <IconButton aria-label="connect">
-                    <AddCircleRoundedIcon />
                 </IconButton>
             </CardActions>
         </Card>
@@ -95,9 +94,9 @@ function Post({ post, setCurrentId }) {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={()=> setCurrentId(post._id)}>Edit</MenuItem>
+        <MenuItem onClick={()=> setCurrentId(post._id)}>Edit </MenuItem>
         <MenuItem onClick={()=> dispatch(deletePost(post._id))}>Delete</MenuItem>
-        <MenuItem onClick={handleClose}>Like</MenuItem>
+        <MenuItem onClick={()=> dispatch(likePost(post._id))}>Like</MenuItem>
       </Menu>
         </>
     );

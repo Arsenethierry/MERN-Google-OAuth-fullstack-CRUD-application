@@ -70,6 +70,7 @@ export default function FormPost({ currentId,setCurrentId }) {
     setOpen(false);
   };
   const Clear = ()=>{
+    setCurrentId(0);
     setPostData({  creator: "", title: "", message: "", tags: "", selectedFile: "" })
   }
 
