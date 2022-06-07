@@ -1,5 +1,28 @@
 {
+  "name": "altlinker.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "dependencies": {
-    "@mui/system": "^5.6.4"
-  }
+    "history": "^5.3.0",
+    "clsx": "^1.1.1",
+    "csstype": "^3.0.11",
+    "prop-types": "^15.8.1",
+    "object-assign": "^4.1.1",
+    "js-tokens": "^4.0.0",
+    "react-is": "^17.0.2",
+    "loose-envify": "^1.4.0",
+    "react": "^18.1.0",
+    "react-router-dom": "^6.3.0",
+    "regenerator-runtime": "^0.13.9",
+    "react-router": "^6.3.0",
+    "stylis": "^4.0.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
